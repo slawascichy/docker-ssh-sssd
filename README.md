@@ -33,7 +33,7 @@ docker run -d -p 8022:22 --name sssd \
 
 ---
 **UWAGA**
-Aby skorzystać z kompozycji trzeb wpierw zbudować obraz (image) dla kontenera oraz trzeba przygotować katalog dla wolumenu np. w Windows katalog `D:\mercury\sss` aby mógł być zdefiniowany jako device: `/d/mercury/sss`.
+Aby skorzystać z kompozycji trzeba wpierw zbudować obraz (image) dla kontenera oraz trzeba przygotować katalog dla wolumenu np. w Windows katalog `D:\mercury\sss` aby mógł być zdefiniowany jako device: `/d/mercury/sss`.
 ---
 
 Można uruchomić kompozycję (definicja kompozycji jest w pliku `docker-compose.yml`. Wystarczy tylko ustawić prawidłowe parametry w pliku `sssd-conf.env` (***UWAGA***: Nie ma go?! To utwórz własny plik konfiguracyjny dla kompozycji!) np.
