@@ -1,5 +1,59 @@
 # docker-ssh-sssd
 
+## Praca z kontenerem
+
+### Konfiguracja `sudo`
+
+W kontenerze zawarta jest domyślna konfiguracja w pliku `/etc/sudoers.conf`.
+Domyślne ustawienia pozwalają na wykonanie operacji sudo dla następujących jednostek:
+ - Użytkownicy
+ 
+ ```
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+ ```
+
+ - Grupy
+
+ ```
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+ ```
+
+Autorytatywnie uznano, że ta konfiguracja wystarczy. Wiedząc o tym wystarczy LDAP utworzyć grupy o nazwie `admin` lub `sudo` i dodać do nich użytkowników mających posiadać takie uprawnienie do nich. Przykładowa konfiguracja grupy `admin`:
+![Przykładowa konfiguracja grupy](https://github.com/slawascichy/docker-ssh-sssd/doc/sample_group_admin.png?raw=true)
+
+
+### Tworzenie użytkowników pod `sssd`
+
+Aby wszystko działo jak na leży pamiętać o tym, że powinien on mieć ustawione odpowiednie atrybuty. Poniżej opis najważniejszych z nich:
+ - uid - nazwa użytkownika w systemie Unix
+ - uidNumber - identyfikator użytkownika w systemie Unix (Unix ID) - ***identyfikator powinien być dla użytkowników unikalny w całym systemie. Jeżeli tego nie zagwarantujesz użytkownicy będą mieli te same uprawnienia prywatne*** Aby zapewnić unikalność niektórzy tworzą pomocniczą entry w drzewie LDAP, w której wartość atrybutu uidNumber wskazuje na ostatnio wykorzystaną wartość i jest aktualizowana po każdym nowym dodaniu entry użytkownika np.:
+![Przykładowa UnixIdSequence](https://github.com/slawascichy/docker-ssh-sssd/doc/sample_entry_UnixIdSequence.png?raw=true) 
+ - gidNumber - identyfikator domyślnej grupy w systemie Unix
+ - homeDirectory - nazwa katalogu domowego
+ - loginShell - program shell np. `/bin/bash`
+ - userPassword - hasło użytkownika
+ 
+Poniżej przykładowe entry użytkownika:
+![Przykładowy użytkownik](https://github.com/slawascichy/docker-ssh-sssd/doc/sample_user.png?raw=true) 
+
+### Tworzenie grupy pod `sssd`
+
+Grupa powinna mieć następujące atrybuty. Poniżej opis najważniejszych z nich:
+ - cn - nazwa grupy w systemie Unix
+ - gidNumber - identyfikator grupy w systemie Unix - ***identyfikator powinien być dla grup unikalny w całym systemie. Jeżeli tego nie zagwarantujesz użytkownicy będą mieli te same role/uprawnienia grup*** - zobacz opisany problem w części poświęconej użytkownikom.
+
+### Połączenie się po SSH:
+
+```
+ssh -p 8022 scichy@localhost
+```
+
+
 ## Obsługa kontenera
  
 ### Budowanie obrazu kontenera:
@@ -70,13 +124,6 @@ W projekcie są 2 przykładowe pliki dla kompozycji z serwerem OpenLDAP oraz kli
 
 ```
 docker compose --file docker-compose-with-openldap.yml --env-file sssd-openldap-conf.env up
-```
-
-
-## Połączenie się po SSH:
-
-```
-ssh -p 8022 scichy@localhost
 ```
 
 ## Znane problemy
