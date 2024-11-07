@@ -24,6 +24,7 @@ root    ALL=(ALL:ALL) ALL
  ```
 
 Autorytatywnie uznano, że ta konfiguracja wystarczy. Wiedząc o tym wystarczy LDAP utworzyć grupy o nazwie `admin` lub `sudo` i dodać do nich użytkowników mających posiadać takie uprawnienie do nich. Przykładowa konfiguracja grupy `admin`:
+
 ![Przykładowa konfiguracja grupy](https://raw.githubusercontent.com/slawascichy/docker-ssh-sssd/refs/heads/main/doc/sample_group_admin.png)
 
 
@@ -32,13 +33,16 @@ Autorytatywnie uznano, że ta konfiguracja wystarczy. Wiedząc o tym wystarczy L
 Aby wszystko działo jak na leży pamiętać o tym, że powinien on mieć ustawione odpowiednie atrybuty. Poniżej opis najważniejszych z nich:
  - uid - nazwa użytkownika w systemie Unix
  - uidNumber - identyfikator użytkownika w systemie Unix (Unix ID) - ***identyfikator powinien być dla użytkowników unikalny w całym systemie. Jeżeli tego nie zagwarantujesz użytkownicy będą mieli te same uprawnienia prywatne*** Aby zapewnić unikalność niektórzy tworzą pomocniczą entry w drzewie LDAP, w której wartość atrybutu uidNumber wskazuje na ostatnio wykorzystaną wartość i jest aktualizowana po każdym nowym dodaniu entry użytkownika np.:
+
 ![Przykładowa UnixIdSequence](https://raw.githubusercontent.com/slawascichy/docker-ssh-sssd/refs/heads/main/doc/sample_entry_UnixIdSequence.png) 
+
  - gidNumber - identyfikator domyślnej grupy w systemie Unix
  - homeDirectory - nazwa katalogu domowego
  - loginShell - program shell np. `/bin/bash`
  - userPassword - hasło użytkownika
  
 Poniżej przykładowe entry użytkownika:
+
 ![Przykładowy użytkownik](https://raw.githubusercontent.com/slawascichy/docker-ssh-sssd/refs/heads/main/doc/sample_user.png) 
 
 ### Tworzenie grupy pod `sssd`
