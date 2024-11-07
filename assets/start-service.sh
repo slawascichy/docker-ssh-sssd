@@ -24,8 +24,9 @@ initSssd() {
     sed -i "s|_LDAP_GROUP_MEMBER_|${LDAP_GROUP_MEMBER}|g" $SSSD_CONFIG_FILE
     sed -i "s|_LDAP_BIND_DN_|${LDAP_BIND_DN}|g" $SSSD_CONFIG_FILE
     sed -i "s|_LDAP_BIND_PASSWORD_|${LDAP_BIND_PASSWORD}|g" $SSSD_CONFIG_FILE
-    echo "session     required      pam_mkhomedir.so skel=/etc/skel umask=022" > /etc/pam.d/password-auth
-    echo "session     required      pam_mkhomedir.so skel=/etc/skel umask=022" > /etc/pam.d/system-auth
+    # To create a home directory automatically ->
+    echo "session     required      pam_mkhomedir.so skel=/etc/skel umask=022" >> /etc/pam.d/common-session
+    # <- To create a home directory automatically
     touch $SSSD_INIT_FILE
 }
 
