@@ -126,13 +126,12 @@ W projekcie są 2 przykładowe pliki dla kompozycji z serwerem OpenLDAP oraz kli
 1. docker-compose-with-openldap.yml - plik z definicją kompozycji
 2. sssd-openldap-conf.env - plik z parametrami kompozycji
 
+Poniżej polecenie budowania kompozycji:
+
 ```
 docker compose --file docker-compose-with-openldap.yml --env-file sssd-openldap-conf.env up
 ```
 
 ## Znane problemy
-1. Na razie nie rozwiązano problemu automatycznego tworzenia katalogu użytkownika. Na razie może to zrobić ręcznie sam użytkownik, poprzez wydanie polecenia zaraz po zalogowaniu się do kontenera:
 
-```
-mkdir ~
-```
+Na razie nie wykryto nowych, a dotychczasowe rozwiązano.
