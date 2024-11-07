@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y \
   sssd \
   krb5-user \
   openssh-server \
-  openssh-client
+  openssh-client \
+  sudo
 
 # Potrzebujemy certyfikaty CA by mós skonfigurować SSL dla LDAP
 RUN mkdir -p /opt/cacerts
