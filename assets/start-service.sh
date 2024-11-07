@@ -7,6 +7,16 @@ export SSSD_CONFIG_FILE=/etc/sssd/sssd.conf
 initSssd() {
     echo "Init sssd..."
     sed -i "s|_LDAP_URI_|${LDAP_URI}|g" $SSSD_CONFIG_FILE
+    sed -i "s|_LDAP_USE_TSL_|${LDAP_USE_TSL}|g" $SSSD_CONFIG_FILE
+    if [ "true" == ${LDAP_USE_TSL} ] ; then
+    	echo "Enable TSL communication..."
+    	sed -i "s|_LDAP_AUTH_DISABLE_|#ldap_auth_disable_tls_never_use_in_production = false|g" $SSSD_CONFIG_FILE
+    	sed -i "s|_LDAP_TLS_REQCERT_|#ldap_tls_reqcert = allow|g" $SSSD_CONFIG_FILE
+    else 
+    	echo "Disable TSL communication..."
+    	sed -i "s|_LDAP_AUTH_DISABLE_|ldap_auth_disable_tls_never_use_in_production = true|g" $SSSD_CONFIG_FILE
+    	sed -i "s|_LDAP_TLS_REQCERT_|ldap_tls_reqcert = never|g" $SSSD_CONFIG_FILE
+    fi
     sed -i "s|_LDAP_SEARCH_BASE_|${LDAP_SEARCH_BASE}|g" $SSSD_CONFIG_FILE
     sed -i "s|_LDAP_USER_SEARCH_BASE_|${LDAP_USER_SEARCH_BASE}|g" $SSSD_CONFIG_FILE
     sed -i "s|_LDAP_ACCESS_FILTER_|${LDAP_ACCESS_FILTER}|g" $SSSD_CONFIG_FILE

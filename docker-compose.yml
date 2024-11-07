@@ -25,6 +25,7 @@ services:
       - seccomp:unconfined
     environment:
       - LDAP_URI=${LDAP_URI}
+      - LDAP_USE_TSL=${LDAP_USE_TSL}
       - LDAP_SEARCH_BASE=${LDAP_SEARCH_BASE}
       - LDAP_USER_SEARCH_BASE=${LDAP_USER_SEARCH_BASE}
       - LDAP_ACCESS_FILTER=${LDAP_ACCESS_FILTER}

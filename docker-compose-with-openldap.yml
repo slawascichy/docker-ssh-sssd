@@ -1,0 +1,73 @@
+version: '2'
+
+networks:
+  default-network:
+    driver: bridge
+
+volumes:
+  var-lib-sss:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/sss
+  openldap:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/openldap	
+  slapd-d:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/slapd.d 	  
+ 
+services:
+  ubuntu-sssd-ssh:
+    image: ibpm/sssd:ubuntu-0.1
+    hostname: ubuntu-sssd-ssh
+    networks:
+      - default-network
+    build:
+      context: .
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    depends_on:
+      - openldap	  
+    environment:
+      - LDAP_URI=${LDAP_URI}
+      - LDAP_USE_TSL=${LDAP_USE_TSL}
+      - LDAP_SEARCH_BASE=${LDAP_SEARCH_BASE}
+      - LDAP_USER_SEARCH_BASE=${LDAP_USER_SEARCH_BASE}
+      - LDAP_ACCESS_FILTER=${LDAP_ACCESS_FILTER}
+      - LDAP_GROUP_SEARCH_BASE=${LDAP_GROUP_SEARCH_BASE}
+      - LDAP_GROUP_MEMBER=${LDAP_GROUP_MEMBER}
+      - LDAP_BIND_DN=${LDAP_BIND_DN}
+      - LDAP_BIND_PASSWORD=${LDAP_BIND_PASSWORD}
+    volumes: 
+      - var-lib-sss:/var/lib/sss:rw
+    ports:
+      - "8022:22"
+  openldap:
+    image: ibpm/openldap:ubuntu-0.1
+    hostname: openldap
+    networks:
+      - default-network
+    environment:
+      - LDAP_ORG_DC=${LDAP_ORG_DC}
+      - LDAP_OLC_SUFFIX=${LDAP_OLC_SUFFIX}
+      - LDAP_ROOT_CN=${LDAP_ROOT_CN}
+      - LDAP_ROOT_DN=cn=${LDAP_ROOT_CN},${LDAP_OLC_SUFFIX}
+      - LDAP_ROOT_PASSWD=${LDAP_ROOT_PASSWD}
+      - LDAP_TECHNICAL_USER_CN=${LDAP_TECHNICAL_USER_CN}
+      - LDAP_TECHNICAL_USER_PASSWD=${LDAP_TECHNICAL_USER_PASSWD}
+    volumes: 
+      - openldap:/var/lib/ldap:rw
+      - slapd-d:/etc/ldap/slapd.d:rw
+    ports:
+      - "389:389"
+      - "636:636"     

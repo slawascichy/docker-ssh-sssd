@@ -18,6 +18,7 @@ Uruchamianie kontenera z parametrami definiującymi komunikację z LDAP:
 ```
 docker run -d -p 8022:22 --name sssd \
  -e LDAP_URI="ldaps://<server_name>:<port>" \
+ -e LDAP_USE_TSL=True
  -e LDAP_SEARCH_BASE="dc=example,dc=com" \
  -e LDAP_USER_SEARCH_BASE="ou=Users,ou=example.com,dc=example,dc=com" \
  -e LDAP_ACCESS_FILTER="(&(objectclass=shadowaccount)(objectclass=posixaccount)(allowSystem=front-001.example.com;shell;*))" \
@@ -40,6 +41,7 @@ Można uruchomić kompozycję (definicja kompozycji jest w pliku `docker-compose
 
 ```
 LDAP_URI=ldaps://<server_name>:<port>
+LDAP_USE_TSL=True
 LDAP_SEARCH_BASE=dc=example,dc=com
 LDAP_USER_SEARCH_BASE=ou=Users,ou=example.com,dc=example,dc=com
 LDAP_ACCESS_FILTER=(&(objectclass=shadowaccount)(objectclass=posixaccount)(allowSystem=front-001.example.com;shell;*))
@@ -54,6 +56,22 @@ Gdy mamy już gotowy plik (o nazwie `sssd-conf.env`) z parametrami to kompozycj�
 ```
 docker compose --env-file sssd-conf.env up
 ```
+
+## Uruchomienie kompozycji z openLdap
+
+---
+**UWAGA**
+Wpierw ściągnij projekt https://github.com/slawascichy/docker-openldap i zbuduj sobie obraz z serwerem OpenLDAP.
+---
+
+W projekcie są 2 przykładowe pliki dla kompozycji z serwerem OpenLDAP oraz klientem sssd:
+1. docker-compose-with-openldap.yml - plik z definicją kompozycji
+2. sssd-openldap-conf.env - plik z parametrami kompozycji
+
+```
+docker compose --file docker-compose-with-openldap.yml --env-file sssd-openldap-conf.env up
+```
+
 
 ## Połączenie się po SSH:
 
