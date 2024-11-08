@@ -1,0 +1,18 @@
+networks:
+  default-network:
+    driver: bridge
+
+services:
+  ldap-ui:
+    image: dnknth/ldap-ui
+    build: .
+    hostname: ldap-ui
+    networks:
+      - default-network
+    environment:
+      - LDAP_URL=${UI_LDAP_URI:-ldap://openldap:389}/
+      - USE_TLS=${UI_USE_TLS:-}
+      - INSECURE_TLS=${UI_INSECURE_TLS:-}
+      - BASE_DN=${UI_SEARCH_BASE}
+    ports:
+      - "5000:5000"
