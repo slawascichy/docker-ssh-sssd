@@ -35,7 +35,8 @@ Aby wszystko działo jak na leży pamiętać o tym, że powinien on mieć ustawi
  - uidNumber - identyfikator użytkownika w systemie Unix (Unix ID) - 
 
 > [!TIP]
-> ***Identyfikator użytkownika (uidNumber) powinien być dla użytkowników unikalny w całym systemie. Jeżeli tego nie zagwarantujesz użytkownicy będą mieli te same uprawnienia prywatne*** Aby zapewnić unikalność niektórzy tworzą pomocniczą entry w drzewie LDAP, w której wartość atrybutu uidNumber wskazuje na ostatnio wykorzystaną wartość i jest aktualizowana po każdym nowym dodaniu entry użytkownika np.:
+> ***Identyfikator użytkownika (uidNumber) powinien być dla użytkowników unikalny w całym systemie. Jeżeli tego nie zagwarantujesz użytkownicy będą mieli te same uprawnienia prywatne***. Aby zapewnić unikalność niektórzy tworzą pomocniczą entry w drzewie LDAP, w której wartość atrybutu uidNumber wskazuje na ostatnio wykorzystaną wartość i jest aktualizowana po każdym nowym dodaniu entry użytkownika np.:
+>
 > ![Przykładowa UnixIdSequence](https://raw.githubusercontent.com/slawascichy/docker-ssh-sssd/refs/heads/main/doc/sample_entry_UnixIdSequence.png) 
 
  - gidNumber - identyfikator domyślnej grupy w systemie Unix
