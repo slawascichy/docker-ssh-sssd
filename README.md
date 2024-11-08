@@ -23,7 +23,7 @@ root    ALL=(ALL:ALL) ALL
 %sudo   ALL=(ALL:ALL) ALL
  ```
 
-Autorytatywnie uznano, że ta konfiguracja wystarczy. Wiedząc o tym wystarczy LDAP utworzyć grupy o nazwie `admin` lub `sudo` i dodać do nich użytkowników mających posiadać takie uprawnienie do nich. Przykładowa konfiguracja grupy `admin`:
+Autorytatywnie uznano, że ta konfiguracja wystarczy. Wiedząc o tym wystarczy w bazie LDAP utworzyć grupy o nazwie `admin` lub `sudo` i dodać do nich użytkowników mających posiadać takie uprawnienie do nich. Przykładowa konfiguracja grupy `admin`:
 
 ![Przykładowa konfiguracja grupy](https://raw.githubusercontent.com/slawascichy/docker-ssh-sssd/refs/heads/main/doc/sample_group_admin.png)
 
