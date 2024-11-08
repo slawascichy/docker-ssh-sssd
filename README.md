@@ -94,10 +94,9 @@ docker run -d -p 8022:22 --name sssd \
 
 Poniżej opis obsługi kompozycji.
 
----
-**UWAGA**
-Aby skorzystać z kompozycji trzeba wpierw zbudować obraz (image) dla kontenera oraz trzeba przygotować katalog dla wolumenu np. w Windows katalog `D:\mercury\sss` aby mógł być zdefiniowany jako device: `/d/mercury/sss`.
----
+> [!IMPORTANT]
+> **UWAGA**
+> Aby skorzystać z kompozycji trzeba wpierw zbudować obraz (image) dla kontenera oraz trzeba przygotować katalog dla wolumenu np. w Windows katalog `D:\mercury\sss` aby mógł być zdefiniowany jako device: `/d/mercury/sss`.
 
 Można uruchomić kompozycję (definicja kompozycji jest w pliku `docker-compose.yml`. Wystarczy tylko ustawić prawidłowe parametry w pliku `sssd-conf.env` (***UWAGA***: Nie ma go?! To utwórz własny plik konfiguracyjny dla kompozycji!) np.
 
@@ -121,12 +120,9 @@ docker compose --env-file sssd-conf.env up
 
 ## Uruchomienie kompozycji z openLdap
 
-Poniżej opis uruchamiania kompozycji.
-
----
-**UWAGA**
-Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
----
+> [!IMPORTANT]
+> **UWAGA**
+> Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
 
 W projekcie są 2 przykładowe pliki dla kompozycji klienta sssd oraz serwera OpenLDAP:
 1. docker-compose-with-openldap.yml - plik z definicją kompozycji
@@ -146,12 +142,9 @@ Jeżeli użyjemy niezmienionych parametrów z pliku `sssd-openldap-conf.env` to:
 
 ## Uruchomienie kompozycji z openLdap oraz ldap-ui
 
-Poniżej opis uruchamiania kompozycji.
-
----
-**UWAGA**
-Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
----
+> [!IMPORTANT]
+> **UWAGA**
+> Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
 
 Chłopaki odwalili kawał dobrej roboty pisząc UI dla LDAP'a. Oprogramowanie dostępne jest na podstawie licencji MIT, więc można korzystać do woli. Repozytorium kodów źródłowych: [ldap-ui](https://github.com/dnknth/ldap-ui).
 
@@ -171,10 +164,9 @@ Jeżeli użyjemy niezmienionych parametrów z pliku `sssd-openldap-conf.env` to:
  - URL dostępu do UI: `http://localhost:5000/`
  - Uwierzytelnianie Basic, nazwa użytkownika: `ldapui`, hasło: `secret`
 
----
-**UWAGA**
-Dostęp bezpośrednio do serwera LDAP nie jest możliwy - korzystać z niego mogą tylko kontenery.
----
+> [!CAUTION]
+>**UWAGA**
+>Dostęp bezpośrednio do serwera LDAP nie jest możliwy - korzystać z niego mogą tylko kontenery.
 
 ## Znane problemy
 
