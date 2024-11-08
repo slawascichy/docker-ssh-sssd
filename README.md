@@ -62,6 +62,8 @@ ssh -p 8022 scichy@localhost
  
 ### Budowanie obrazu kontenera:
 
+Poniżej opis budowania obrazu kontenera.
+
 ---
 **UWAGA**
 Jeżeli chcesz skonfigurować SSL pod komunikację z serwerem LDAP, to wrzuć odpowiednie podpisane certyfikaty z rozszerzeniem pliku `*.pem` do katalogu `assets/cacerts` - zobacz przykładowe pliki z certyfikatami CA firmy IBPM S.A.
@@ -90,6 +92,8 @@ docker run -d -p 8022:22 --name sssd \
 
 ### Obsługa kompozycji
 
+Poniżej opis obsługi kompozycji.
+
 ---
 **UWAGA**
 Aby skorzystać z kompozycji trzeba wpierw zbudować obraz (image) dla kontenera oraz trzeba przygotować katalog dla wolumenu np. w Windows katalog `D:\mercury\sss` aby mógł być zdefiniowany jako device: `/d/mercury/sss`.
@@ -117,6 +121,8 @@ docker compose --env-file sssd-conf.env up
 
 ## Uruchomienie kompozycji z openLdap
 
+Poniżej opis uruchamiania kompozycji.
+
 ---
 **UWAGA**
 Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
@@ -140,6 +146,8 @@ Jeżeli użyjemy niezmienionych parametrów z pliku `sssd-openldap-conf.env` to:
 
 ## Uruchomienie kompozycji z openLdap oraz ldap-ui
 
+Poniżej opis uruchamiania kompozycji.
+
 ---
 **UWAGA**
 Wpierw ściągnij projekt [docker-openldap](https://github.com/slawascichy/docker-openldap) i zbuduj sobie obraz z serwerem OpenLDAP.
@@ -162,6 +170,7 @@ Wpisami LDAP zarządzać można teraz za pomocą aplikacji WWW.
 Jeżeli użyjemy niezmienionych parametrów z pliku `sssd-openldap-conf.env` to:
  - URL dostępu do UI: `http://localhost:5000/`
  - Uwierzytelnianie Basic, nazwa użytkownika: `ldapui`, hasło: `secret`
+
 ---
 **UWAGA**
 Dostęp bezpośrednio do serwera LDAP nie jest możliwy - korzystać z niego mogą tylko kontenery.
