@@ -164,7 +164,7 @@ W projekcie są 2 przykładowe pliki dla kompozycji klienta sssd, serwera OpenLD
 Poniżej polecenie budowania kompozycji: 
 
 ```
-docker compose --file docker-compose-with-openldap.yml --env-file sssd-openldap-conf.env up
+docker compose --file docker-compose-with-openldap-ldapui.yml --env-file sssd-openldap-conf.env up
 ```
 Wpisami LDAP zarządzać można teraz za pomocą aplikacji WWW.
 Jeżeli użyjemy niezmienionych parametrów z pliku `sssd-openldap-conf.env` to:
