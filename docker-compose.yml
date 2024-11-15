@@ -12,7 +12,7 @@ volumes:
  
 services:
   ubuntu-sssd-ssh:
-    image: ibpm/sssd:ubuntu-0.1
+    image: scisoftware/sssd:ubuntu-0.1
     networks:
       - default-network
     build:

@@ -75,8 +75,32 @@ Poniżej opis budowania obrazu kontenera.
 > Jeżeli chcesz skonfigurować SSL pod komunikację z serwerem LDAP, to wrzuć odpowiednie podpisane certyfikaty z rozszerzeniem pliku `*.pem` do katalogu `assets/cacerts` - zobacz przykładowe pliki z certyfikatami CA firmy IBPM S.A.
 
 ```shell
-docker build -f Dockerfile --no-cache -t ibpm/sssd:ubuntu-0.1 .
+docker build -f Dockerfile --no-cache -t scisoftware/sssd:ubuntu-0.1 .
 ```
+
+### Publikowanie obrazów na Docker Hub
+
+Dokumentacja poleca by bazować na działającym kontenerze - w sumie masz wtedy pewność, że obraz działa.
+ - Robimy tag obrazu z kontenera. Poniżej przykład, w którym `2c3283119e23` to identyfikator działającego kontenera:
+ ```shell
+docker container ls
+docker container commit 2c3283119e23 sssd:latest
+ ```
+
+ - Tworzymy docelowy tag obrazu. Poniżej przykład, w którym `ubuntu-0.1` to obecna wersja obrazu:
+ ```shell
+docker image tag sssd:latest scisoftware/sssd:latest
+docker image tag sssd:latest scisoftware/sssd:ubuntu-0.1
+ ```
+ 
+ - Wysyłamy obrazy w świat. Używamy flag `-a` (lub `--all-tags`) aby wysłać wszystkie wersje obrazów:
+ ```shell
+docker image push -a scisoftware/sssd
+ ```
+
+Opublikowane obrazy można znaleźć na DockerHub: [scisoftware/sssd](https://hub.docker.com/repository/docker/scisoftware/sssd/general).
+
+### Uruchamianie kontenera
 
 Uruchamianie kontenera z parametrami definiującymi komunikację z LDAP:
 
@@ -92,7 +116,7 @@ docker run -d -p 8022:22 --name sssd \
  -e LDAP_BIND_DN="cn=Manager,dc=example,dc=com" \
  -e LDAP_BIND_PASSWORD="secret" \
  -v /var/lib/sss \
- ibpm/sssd:ubuntu-0.1
+ scisoftware/sssd:ubuntu-0.1
 ```
 
 ### Obsługa kompozycji
@@ -163,7 +187,7 @@ W projekcie są 2 przykładowe pliki dla kompozycji klienta sssd, serwera OpenLD
 
 Poniżej polecenie budowania kompozycji: 
 
-```
+```shell
 docker compose --file docker-compose-with-openldap-ldapui.yml --env-file sssd-openldap-conf.env up
 ```
 Wpisami LDAP zarządzać można teraz za pomocą aplikacji WWW.
