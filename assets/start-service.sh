@@ -33,6 +33,9 @@ initSssd() {
 startSssd() {
 	sshd
 	echo "Starting sssd..."
+	if [ "$(ls -A /run/sssd.pid)" ]; then
+		rm -rf /run/sssd.pid
+	fi
 	/usr/sbin/sssd -i -d 4
 }
 
