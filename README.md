@@ -75,7 +75,7 @@ Poniżej opis budowania obrazu kontenera.
 > Jeżeli chcesz skonfigurować SSL pod komunikację z serwerem LDAP, to wrzuć odpowiednie podpisane certyfikaty z rozszerzeniem pliku `*.pem` do katalogu `assets/cacerts` - zobacz przykładowe pliki z certyfikatami CA firmy IBPM S.A.
 
 ```shell
-docker build -f Dockerfile --no-cache -t scisoftware/sssd:ubuntu-0.1 .
+docker build -f Dockerfile --no-cache -t scisoftware/sssd:ubuntu-24.04 .
 ```
 
 ### Publikowanie obrazów na Docker Hub
@@ -87,10 +87,10 @@ docker container ls
 docker container commit 2c3283119e23 sssd:latest
  ```
 
- - Tworzymy docelowy tag obrazu. Poniżej przykład, w którym `ubuntu-0.1` to obecna wersja obrazu:
+ - Tworzymy docelowy tag obrazu. Poniżej przykład, w którym `ubuntu-24.04` to obecna wersja obrazu:
  ```shell
 docker image tag sssd:latest scisoftware/sssd:latest
-docker image tag sssd:latest scisoftware/sssd:ubuntu-0.1
+docker image tag sssd:latest scisoftware/sssd:ubuntu-24.04
  ```
  
  - Wysyłamy obrazy w świat. Używamy flag `-a` (lub `--all-tags`) aby wysłać wszystkie wersje obrazów:

@@ -24,7 +24,7 @@ volumes:
  
 services:
   openldap:
-    image: scisoftware/openldap:ubuntu-0.1
+    image: scisoftware/openldap:ubuntu-24.04
     hostname: openldap
     networks:
       - default-network
@@ -53,7 +53,7 @@ services:
 #      - "389:389"
 #      - "636:636"     
   ubuntu-sssd-ssh:
-    image: scisoftware/sssd:ubuntu-0.1
+    image: scisoftware/sssd:ubuntu-24.04
     hostname: ubuntu-sssd-ssh
     networks:
       - default-network
